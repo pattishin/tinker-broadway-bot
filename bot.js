@@ -3,9 +3,9 @@ var config = {
     server: "orchard.willowtreeapps.com",
     port: 7777,
     channels: ['#botsandbox'],
-    botName: 'pingbot',
-    userName: 'pingbot',
-    realName: 'Pinguin',
+    botName: 'broadwaybot',
+    userName: 'broadwaybot',
+    realName: 'BroadwayBot',
     secure: {
         passphrase: '',
         rejectUnauthorized: false
