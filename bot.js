@@ -1,19 +1,7 @@
 // Create the configuration
 var config = {
     server: "orchard.willowtreeapps.com",
-    port: 7777,
-    channels: ['#botsandbox'],
-    botName: 'broadwaybot',
-    userName: 'broadwaybot',
-    realName: 'BroadwayBot',
-    secure: {
-        passphrase: '',
-        rejectUnauthorized: false
-    },
-    password: 'We_built_that_app.',
-    certExpired: true,
-    selfSigned: true,
-    autoConnect: false
+    botName: 'broadwaybot'
 }
 
 
@@ -23,24 +11,37 @@ var irc = require("irc");
 
 // Create the bot name
 var bot = new irc.Client(config.server, config.botName, {
-    channels: config.channels
+    port: 7777,
+    channels: ['#botsandbox'],
+    userName: 'broadwaybot',
+    realName: 'BroadwayBot',
+    secure: {
+        passphrase: 'We_built_that_app.',
+        rejectUnauthorized: false
+    },
+    password: 'We_built_that_app.',
+    certExpired: true,
+    selfSigned: true,
+    autoConnect: false
+});
+
+bot.connect(function() {
+    console.log('connecting bot');
+});
+
+bot.addListener("join", function(channel, who) {
+    bot.say(channel, who + "...dude...welcome back!");
+});
+        
+bot.addListener("message", function(from, to, text, message) {
+        bot.say(from, "¿Que?");
+});
+
+bot.addListener("message", function(from, to, text, message) {
+        bot.say(config.channels[0], "¿Public que?");
 });
 
 console.log(bot);
 
-// Listen for joins
-bot.addListener("join", function(channel, who) {
-// Welcome them in!
-    bot.say(channel, who + "...dude...welcome back!");
-});
-
-// Listen for any message, PM said user when he posts
-bot.addListener("message", function(from, to, text, message) {
-    bot.say(from, "¿Que?");
-});
-
-// Listen for any message, say to him/her in the room
-bot.addListener("message", function(from, to, text, message) {
-    bot.say(config.channels[0], "¿Public que?");
-});
+bot.join('#wat');
 
